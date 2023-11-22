@@ -15,5 +15,4 @@ class AlternativeActivity : AppCompatActivity() {
         
 
     }
-
 }
