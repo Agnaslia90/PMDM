@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">PMDM_T2</string>
+    <string name="MiPrimeraApp">Mi Primera App</string>
+    <string name="Conexion">Conexión</string>
+    <string name="Sensor">Sensor</string>
+    <string name="Guardar">Guardar</string>
+    <string name="Cargar">Cargar</string>
+    <string name="Text" />
+    <string name="enter_name">Introduce tu nombre</string>
+</resources>
