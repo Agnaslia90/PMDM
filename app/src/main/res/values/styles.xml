@@ -1,3 +1,13 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <style name="milku">
+        <item name="android:fontFamily">@font/misty</item>
+    </style>
+
+    <style name="Milku16" parent="milku">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="Milku12" parent="milku">
+        <item name="android:textSize">12sp</item>
+    </style>
 </resources>

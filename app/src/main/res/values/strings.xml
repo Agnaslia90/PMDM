@@ -6,5 +6,5 @@
     <string name="Guardar">Guardar</string>
     <string name="Cargar">Cargar</string>
     <string name="Text" />
-    <string name="IntroduceNombre">Introduce tu nombre</string>
+    <string name="enter_name">Introduce tu nombre</string>
 </resources>
