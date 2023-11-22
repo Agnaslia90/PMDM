@@ -12,7 +12,5 @@ class AlternativeActivity : AppCompatActivity() {
     }
 
     private fun initializeViews() {
-
     }
-
 }
