@@ -57,28 +57,28 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setUpBtnLoadClick() {
-        Button btPulsandoCargar = findViewById(R.id.btCargar);
-        btPulsandoCargar.setOnClickListener(new View.OnClickListener() {
+        Button btnLoad = findViewById(R.id.btCargar);
+        btnLoad.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View s) {
                 SharedPreferences sharePref = getSharedPreferences("Datos", Context.MODE_PRIVATE);
-                String TextoCompleto = sharePref.getString("datos", "");
-                text.setText(TextoCompleto);
+                String textComplete = sharePref.getString("datos", "");
+                text.setText(textComplete);
                 Toast.makeText(getApplicationContext(), "Datos cargados", Toast.LENGTH_LONG).show();
             }
         });
     }
 
     private void setUpBtnSaveClick() {
-        Button btPulsandoGuardar = (Button) findViewById(R.id.btGuardar);
-        btPulsandoGuardar.setOnClickListener(new View.OnClickListener() {
+        Button btnSave = findViewById(R.id.btGuardar);
+        btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View c) {
                 if (c.getId() == R.id.btGuardar) {
-                    String TextoCompleto = text.getText().toString();
+                    String textComplete = text.getText().toString();
                     SharedPreferences sharePref = getSharedPreferences("Datos", Context.MODE_PRIVATE);
                     SharedPreferences.Editor edit = sharePref.edit();
-                    edit.putString("datos", TextoCompleto);
+                    edit.putString("datos", textComplete);
                     edit.apply();
 
                     Toast.makeText(getApplicationContext(), "Datos guardados", Toast.LENGTH_LONG).show();
@@ -88,12 +88,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setUpBtnSensorClick() {
-        Button btPulsandoSensor = (Button) findViewById(R.id.btSensor);
-        btPulsandoSensor.setOnClickListener(new View.OnClickListener() {
+        Button btSensor = findViewById(R.id.btSensor);
+        btSensor.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View z) {
-                if (haySensor()) {
+                if (isThereSensor()) {
                     Toast.makeText(getApplicationContext(), "Existe el sensor acelerómetro", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(getApplicationContext(), "No hay sensor acelerómetro", Toast.LENGTH_SHORT).show();
@@ -104,11 +104,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setUpBtnConnectionClick() {
-        Button btPulsandoConexion = (Button) findViewById(R.id.btConexion);
-        btPulsandoConexion.setOnClickListener(new View.OnClickListener() {
+        Button btnConnection = findViewById(R.id.btConexion);
+        btnConnection.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (hayConectividad(getApplicationContext())) {
+                if (isConnected(getApplicationContext())) {
                     Toast.makeText(getApplicationContext(), "Hay conexión a internet", Toast.LENGTH_SHORT).show();
 
                 } else {
@@ -118,31 +118,28 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public boolean haySensor() {
+    public boolean isThereSensor() {
         SensorManager sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         return (sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) != null);
     }
 
-    public boolean hayConectividad(Context context) {
-        boolean conectividad = false;
+    public boolean isConnected(Context context) {
+        boolean connectivity = false;
         ConnectivityManager connectivityManager = (ConnectivityManager)
                 context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        if (connectivityManager != null) {
 
-            Network redActual = connectivityManager.getActiveNetwork();
-            if (redActual != null) {
-                NetworkCapabilities propiedadesRed = connectivityManager.getNetworkCapabilities(redActual);
-                if (propiedadesRed != null) {
-                    if (propiedadesRed.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
-                        conectividad = true;
-                    }
-                    if (propiedadesRed.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)) {
-                        conectividad = true;
-                    }
+        if (connectivityManager != null) {
+            Network currentNetwork = connectivityManager.getActiveNetwork();
+            if (currentNetwork != null) {
+                NetworkCapabilities networkCapabilities = connectivityManager.getNetworkCapabilities(currentNetwork);
+                if (networkCapabilities != null) {
+                    connectivity = networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
+                            networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET);
                 }
             }
         }
-        return conectividad;
+
+        return connectivity;
     }
 
 }
